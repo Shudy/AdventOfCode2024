@@ -1,8 +1,6 @@
 import re
 
 memory_data = ''
-mul_operations = []
-
 mul_regex = re.compile(r"mul\((\d{1,3}),(\d{1,3})\)")
 mul_regex_tokens = re.compile(r"mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\)")
 
@@ -14,13 +12,9 @@ def read_data(path):
     f.close()
 
 
-def find_mul_operations():
-    global mul_operations
-    mul_operations = re.findall(mul_regex, memory_data)
-
-
 def execute_mul_operations():
     result = 0
+    mul_operations = re.findall(mul_regex, memory_data)
     for operation in mul_operations:
         result += int(operation[0]) * int(operation[1])
     return result
@@ -48,7 +42,6 @@ def main():
     read_data('../data/day3')
 
     print(f'--------PART 1--------')
-    find_mul_operations()
     print(f"Result of the memory: {execute_mul_operations()}")
 
     print(f'--------PART 2--------')
